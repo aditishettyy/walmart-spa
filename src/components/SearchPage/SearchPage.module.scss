@@ -18,18 +18,15 @@
     .itemSearchBody {
         display: flex;
     }
-
-    .itemSearchBox {
-        padding: 0 10px;
-        border: 1px solid grey;
-        border-radius: 5px;
+    .itemSearch {
+        min-width: 350px;
         margin-right: 20px;
     }
 
     .filterButton {
         color: #3b7eae;
         font-size: 30px;
-        margin: 5px;
+        margin: 10px;
     }
 
 }

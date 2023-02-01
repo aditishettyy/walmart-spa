@@ -6,9 +6,10 @@ import { BsFilter } from "react-icons/bs";
 import { DataGrid } from '@mui/x-data-grid';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import Tooltip from '@mui/material/Tooltip';
 
 import styles from './SearchPage.module.scss';
@@ -38,7 +39,7 @@ const SearchPage = () => {
     const orderDataEmpty = filteredOrders.length === 0;
 
     useEffect(() => {
-        console.log('useEffect');
+        // console.log('useEffect');
         setLoading(true);
         // fetching data from a random api and using mock data to mimic asynchronous call
         fetch("https://jsonplaceholder.typicode.com/todos/1")
@@ -53,44 +54,44 @@ const SearchPage = () => {
     }, []);
 
     const handleFilterChange = (event, name) => {
-        console.log('handleFilterChange')
+        // console.log('handleFilterChange')
         const newFilter = { ...filter };
         newFilter[name] = event.target.value;
         setFilter(newFilter)
     };
 
     const fetchData = () => {
-        console.log('fetchData')
+        // console.log('fetchData')
         const newFilteredData = [...orders];
         setFilteredOrders(newFilteredData);
     }
 
     const resetData = () => {
-        console.log('resetData')
+        // console.log('resetData')
         setFilteredOrders([]);
         setFilter(initFilter);
         setOpenFilterPanel(false)
     }
 
     const validateFilters = () => {
-        console.log('validateFilters')
+        // console.log('validateFilters')
         const itemNumberFilter = filter.itemNumber && filter.itemNumber.trim().length > 0 ? filter.itemNumber.trim().split(',').map(Number) : null;
         const orderNumberFilter = filter.orderNumber && filter.orderNumber.trim().length > 0 ? filter.orderNumber.trim().split(',').map(Number) : null;
 
         let validationErrorObj = {};
         if (!validateNumberArray(itemNumberFilter)) {
-            validationErrorObj.itemNumber = 'Use numbers only separated by commas'
+            validationErrorObj.itemNumber = 'Please use numbers only separated by commas'
         }
 
         if (!validateNumberArray(orderNumberFilter)) {
-            validationErrorObj.orderNumber = 'Use numbers only separated by commas'
+            validationErrorObj.orderNumber = 'Please use numbers only separated by commas'
         }
         setValidationError(validationErrorObj)
         return Object.keys(validationErrorObj).length === 0
     }
 
     const applyFilters = () => {
-        console.log('applyFilters')
+        // console.log('applyFilters')
         const itemNumberFilter = filter.itemNumber && filter.itemNumber.trim().length > 0 ? filter.itemNumber.trim().split(',').map(Number) : null;
         const orderNumberFilter = filter.orderNumber && filter.orderNumber.trim().length > 0 ? filter.orderNumber.trim().split(',').map(Number) : null;
         const typeFilter = filter.type;
@@ -117,11 +118,11 @@ const SearchPage = () => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log('handleSubmit')
-
+        e && e.preventDefault();
+        // console.log('handleSubmit')
+        
         if (validateFilters()) {
-            applyFilters()
+            applyFilters();
         }
     }
 
@@ -179,23 +180,30 @@ const SearchPage = () => {
                     <div className={styles.itemSearchBox}>
                         <form onSubmit={(e) => handleSubmit(e)}>
                             <Tooltip title="Search by Item # separated by comma">
-                                <InputBase
+                                <TextField
+                                    className={styles.itemSearch}
                                     id="item-search"
                                     placeholder="Search by Item #"
                                     value={filter.itemNumber}
                                     onChange={(e) => handleFilterChange(e, 'itemNumber')}
-                                    // helperText={validationError.itemNumber}
+                                    helperText={validationError.itemNumber}
                                     error={!!validationError.itemNumber}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    type="button"
+                                                    sx={{ p: '10px', color: '#3b7eae' }}
+                                                    aria-label="search"
+                                                    onClick={handleSubmit}
+                                                >
+                                                    <SearchIcon />
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
                             </Tooltip>
-                            <IconButton
-                                type="button"
-                                sx={{ p: '10px', color: '#3b7eae' }}
-                                aria-label="search"
-                                onClick={handleSubmit}
-                            >
-                                <SearchIcon />
-                            </IconButton>
                         </form>
                     </div>
                     <div className={styles.filterButton}>
@@ -224,7 +232,6 @@ const SearchPage = () => {
                 handleFilterChange={handleFilterChange}
                 filter={filter}
                 resetData={resetData}
-                // applyFilters={applyFilters}
                 validationErrorObj={validationError}
                 handleSubmit={handleSubmit}
             />
