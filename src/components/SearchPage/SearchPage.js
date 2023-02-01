@@ -91,6 +91,7 @@ const SearchPage = () => {
     }
 
     const applyFilters = () => {
+        // Usually we make a new api call based on filters and set the data. Since it's mock data, we're filtering on the frontend
         // console.log('applyFilters')
         const itemNumberFilter = filter.itemNumber && filter.itemNumber.trim().length > 0 ? filter.itemNumber.trim().split(',').map(Number) : null;
         const orderNumberFilter = filter.orderNumber && filter.orderNumber.trim().length > 0 ? filter.orderNumber.trim().split(',').map(Number) : null;
@@ -120,7 +121,7 @@ const SearchPage = () => {
     const handleSubmit = (e) => {
         e && e.preventDefault();
         // console.log('handleSubmit')
-        
+
         if (validateFilters()) {
             applyFilters();
         }
