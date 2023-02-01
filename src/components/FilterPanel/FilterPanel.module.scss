@@ -1,0 +1,14 @@
+
+.filterPanelHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 0.3px solid #3b7eae;
+    padding: 20px;
+}
+
+.filterPanelFooter {
+    padding: 20px;
+    // position: fixed;
+    // bottom: 0;
+}

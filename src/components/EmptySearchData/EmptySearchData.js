@@ -1,14 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react';
-import styles from './EmptySearchData.module.scss';
+import React from 'react';
+import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+
+import styles from './EmptySearchData.module.scss';
 
 const EmptySearchData = ({fetchData, setOpenFilterPanel}) => {
 
     return (
-        <div>
-            <div>What are you looking for?</div>
+        <div className={styles.emptySearchDataContainer}>
+            <div className={styles.boldText}>What are you looking for?</div>
             <div>Get started by searching & filtering a few</div>
-            <button onClick={() => fetchData()}>Fetch Data</button>
+            <Button className={styles.fetchDataButton} variant="contained" onClick={() => fetchData()}>Fetch Data</Button>
             <div>
                 <span>or </span>
                 <Link href="#" underline="hover" onClick={() => setOpenFilterPanel(true)}>

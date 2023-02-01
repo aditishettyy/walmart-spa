@@ -1,0 +1,35 @@
+.itemSearchContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 20px;
+    border-bottom: 0.3px solid #3b7eae;
+
+    .itemSearchText {
+        h2 {
+            margin: 0;
+        }
+
+        div {
+            margin-top: 10px;
+        }
+    }
+
+    .itemSearchBody {
+        display: flex;
+    }
+
+    .itemSearchBox {
+        padding: 0 10px;
+        border: 1px solid grey;
+        border-radius: 5px;
+        margin-right: 20px;
+    }
+
+    .filterButton {
+        color: #3b7eae;
+        font-size: 30px;
+        margin: 5px;
+    }
+
+}
